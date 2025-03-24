@@ -52,6 +52,32 @@ This exercise demonstrates role and user management functionality for Redis Ente
     └── requirements.txt
 ```
 
+## Configuration
+
+Both exercises use configuration files (`config.py`) to manage connection settings. These files support environment variables for secure configuration:
+
+### Exercise 1 Configuration
+The `exercise-1/config.py` manages Redis source and replica connection settings:
+- `REDIS_SOURCE_HOST`: Source Redis host (default: 172.16.22.21)
+- `REDIS_SOURCE_PORT`: Source Redis port (default: 13300)
+- `REDIS_REPLICA_HOST`: Replica Redis host (default: 172.16.22.22)
+- `REDIS_REPLICA_PORT`: Replica Redis port (default: 19777)
+- `REDIS_SOURCE_PASSWORD`: Source Redis password (optional)
+- `REDIS_REPLICA_PASSWORD`: Replica Redis password (optional)
+
+### Exercise 2 Configuration
+The `exercise-2/config.py` manages Redis Enterprise API connection settings:
+- `REDIS_ENTERPRISE_HOST`: Redis Enterprise host (default: localhost)
+- `REDIS_ENTERPRISE_PORT`: Redis Enterprise API port (default: 9443)
+- `REDIS_ENTERPRISE_USERNAME`: API username (default: kmillerjr@gmail.com)
+- `REDIS_ENTERPRISE_PASSWORD`: API password (default: admin)
+
+To use environment variables, set them before running the scripts:
+```bash
+export REDIS_SOURCE_HOST=your_source_host
+export REDIS_ENTERPRISE_PASSWORD=your_password
+```
+
 ## Getting Started
 
 1. Clone this repository
