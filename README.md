@@ -55,12 +55,18 @@ This exercise demonstrates role and user management functionality for Redis Ente
 ## Getting Started
 
 1. Clone this repository
-2. Navigate to the specific exercise directory
-3. Install dependencies:
+2. Set up a Python virtual environment:
+   ```bash
+   pip3 install --user virtualenv
+   virtualenv venv
+   source venv/bin/activate  # On Windows, use: venv\Scripts\activate
+   ```
+3. Navigate to the specific exercise directory
+4. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-4. Follow the setup instructions in each exercise's README file
+5. Follow the setup instructions in each exercise's README file
 
 ## Security Notes
 
