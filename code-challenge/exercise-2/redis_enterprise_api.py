@@ -1,5 +1,6 @@
 import requests
 import json
+import time
 import urllib3
 from urllib3.exceptions import InsecureRequestWarning
 from typing import List, Dict, Optional
@@ -270,6 +271,10 @@ def main():
             print(f"Name: {user['name']}, Role: {user['role']}, Email: {user['email']}")
         
         # 4. Delete the database
+        #4.1 
+        # Wait a moment for replication
+        print("\nWaiting for replication to complete...")
+        time.sleep(3)
         print("\nDeleting database...")
         # Get the database UID before deleting
         db_to_delete = api.get_database(db_name)
