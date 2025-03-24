@@ -3,17 +3,28 @@ import json
 import urllib3
 from urllib3.exceptions import InsecureRequestWarning
 from typing import List, Dict, Optional
+from config import (
+    REDIS_ENTERPRISE_HOST,
+    REDIS_ENTERPRISE_PORT,
+    REDIS_ENTERPRISE_USERNAME,
+    REDIS_ENTERPRISE_PASSWORD
+)
 
 # Suppress only the single warning from urllib3 needed.
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
 class RedisEnterpriseAPI:
-    def __init__(self, host: str = "localhost", port: int = 9443, username: str = "admin", password: str = "admin"):
+    def __init__(self, host: str, port: int, username: str, password: str):
         """Initialize Redis Enterprise API client."""
-        self.base_url = f"https://{host}:{port}/v1"
+        self.host = host
+        self.port = port
+        self.username = username
+        self.password = password
+        
+        self.base_url = f"https://{self.host}:{self.port}/v1"
         self.headers = {
             "Content-Type": "application/json",
-            "Authorization": f"Basic {self._get_basic_auth(username, password)}"
+            "Authorization": f"Basic {self._get_basic_auth(self.username, self.password)}"
         }
         # Disable SSL verification warnings
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -185,12 +196,12 @@ class RedisEnterpriseAPI:
             return []
 
 def main():
-    # Initialize the API client
+    # Initialize the API client with config values from config.py
     api = RedisEnterpriseAPI(
-        host="localhost",
-        port=9443,
-        username="kmillerjr@gmail.com",  # Replace with actual username
-        password="admin"  # Replace with actual password
+        host=REDIS_ENTERPRISE_HOST,
+        port=REDIS_ENTERPRISE_PORT,
+        username=REDIS_ENTERPRISE_USERNAME,
+        password=REDIS_ENTERPRISE_PASSWORD
     )
     
     try:

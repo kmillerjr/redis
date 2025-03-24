@@ -1,6 +1,6 @@
-# Exercise 2: Redis Enterprise Role and User Management
+# Exercise 2: Redis Enterprise API
 
-This exercise demonstrates the implementation of role and user management functionality for Redis Enterprise using the REST API. The code provides a Python-based solution for creating and managing roles and users in a Redis Enterprise cluster.
+This exercise demonstrates how to interact with the Redis Enterprise API to manage databases, users, and roles.
 
 ## Features
 
@@ -21,23 +21,34 @@ This exercise demonstrates the implementation of role and user management functi
 
 ## Prerequisites
 
+- Redis Enterprise installed and running
 - Python 3.6 or higher
-- Redis Enterprise cluster running and accessible
-- Required Python packages (install using `pip install -r requirements.txt`):
-  - requests==2.31.0
+- Required Python packages (install using `pip install -r requirements.txt`)
 
 ## Configuration
 
-The script uses the following default configuration:
-- Host: localhost
-- Port: 9443
-- Username: admin
-- Password: admin
+The application uses a `config.py` file to manage Redis Enterprise API connection settings. You can configure the connection details in two ways:
 
-You can modify these settings in the `main()` function of `redis_enterprise_api.py` or pass them as parameters when initializing the `RedisEnterpriseAPI` class.
+1. Set environment variables:
+```bash
+export REDIS_ENTERPRISE_HOST=your-host
+export REDIS_ENTERPRISE_PORT=9443
+export REDIS_ENTERPRISE_USERNAME=your-username
+export REDIS_ENTERPRISE_PASSWORD=your-password
+```
+
+2. Modify the `config.py` file directly:
+```python
+# Redis Enterprise API connection settings with environment variable support
+REDIS_ENTERPRISE_HOST = os.getenv('REDIS_ENTERPRISE_HOST', 'localhost')
+REDIS_ENTERPRISE_PORT = int(os.getenv('REDIS_ENTERPRISE_PORT', '9443'))
+REDIS_ENTERPRISE_USERNAME = os.getenv('REDIS_ENTERPRISE_USERNAME', 'admin')
+REDIS_ENTERPRISE_PASSWORD = os.getenv('REDIS_ENTERPRISE_PASSWORD', 'admin')
+```
+
+Environment variables take precedence over the default values in `config.py`.
 
 ## Usage
-
 1. Install the required packages:
    ```bash
    pip install -r requirements.txt
@@ -58,6 +69,14 @@ The script will:
    - Cary Johnson (admin)
 5. List all users
 6. Delete the created database
+
+## API Features
+
+The `RedisEnterpriseAPI` class provides methods for:
+- Database management (create, delete, get)
+- User management (create, list, get)
+- Role management (create, get)
+
 
 ## Role Details
 
@@ -96,10 +115,12 @@ The script creates three users with different roles:
 
 ## Error Handling
 
-The script includes comprehensive error handling for:
+The script includes error handling for:
+- Connection issues
 - API request failures
 - Existing resource conflicts
 - Invalid responses
+- Missing configurations
 - Network issues
 
 ## Security Notes
@@ -107,6 +128,8 @@ The script includes comprehensive error handling for:
 - SSL verification is disabled by default for development purposes
 - Passwords are transmitted in plain text (consider using environment variables or secure configuration in production)
 - Basic authentication is used for API access
+- Credentials should be managed securely through environment variables
+- Never commit sensitive credentials to version control
 
 ## API Endpoints Used
 
