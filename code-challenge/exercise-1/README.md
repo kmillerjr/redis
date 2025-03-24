@@ -7,6 +7,7 @@ This exercise demonstrates Redis replication and verification between a source a
 - `redis_inserter.py`: Inserts test data into the source Redis instance and verifies it appears in the replica
 - `redis_sync_verifier.py`: A comprehensive tool to verify synchronization between source and replica Redis instances
 - `config.py`: Configuration file for Redis connection settings
+- `run_sync_test.py`: Orchestrates a complete test sequence including initial verification, data insertion, and final verification
 
 ## Prerequisites
 
@@ -51,6 +52,10 @@ export REDIS_REPLICA_PASSWORD=your_replica_password
 
 ## Usage
 
+You can run the scripts individually or use the complete test sequence:
+
+### Individual Scripts
+
 1. First, run the inserter to populate the source Redis instance:
 ```bash
 python redis_inserter.py
@@ -59,6 +64,13 @@ python redis_inserter.py
 2. Then, verify the synchronization between source and replica:
 ```bash
 python redis_sync_verifier.py
+```
+
+### Complete Test Sequence
+
+Run the complete test sequence that includes initial verification, data insertion, and final verification:
+```bash
+python run_sync_test.py
 ```
 
 The verifier will:
@@ -80,4 +92,11 @@ The verifier will provide:
 - List of missing or extra keys
 - Detailed comparison of common keys
 - Summary statistics
-- List of any mismatches found 
+- List of any mismatches found
+
+The complete test sequence will:
+1. Perform an initial verification
+2. Insert test data
+3. Wait for replication
+4. Perform a final verification
+5. Provide a summary of the entire process 
