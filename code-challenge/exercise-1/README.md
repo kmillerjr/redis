@@ -10,17 +10,33 @@ This exercise demonstrates Redis replication and verification between a source a
 - `run_sync_test.py`: Orchestrates a complete test sequence including initial verification, data insertion, and final verification
 
 ## Prerequisites
-
 - Python 3.x
-- Redis Python client (`redis-py`)
-- Access to two Redis instances (source and replica)
+- Docker installed
+- Redis server running in Docker
+- source-db Redis instance on port 13300
+- replica-db Redis instance on port 19777
 
-## Installation
+## Setup - (to run locally with Docker)
+1. Follow the [redis quickstart](https://redis.io/docs/latest/operate/rs/installing-upgrading/quickstarts/docker-quickstart/#run-the-container) link:
+- run redis enterprise in docker with the exposed ports for the 2 databases:   
+$ `docker run -d --cap-add sys_resource --name redis-enterprise -p 8443:8443 -p 9443:9443 -p 12000:12000 -p 13300:13300 -p 19777:19777 redislabs/redis`
 
-1. Install the required Python package:
-```bash
-pip install redis
-```
+2. Setup dbs: source-db and replica-db
+- source-db:
+    - port: 13300
+- replica-db:
+    - port: 19777   
+    - _*Note:* change the connection for the replica of connection to 172.17.0.2:13300_
+
+3. Generate test data using memtier-benchmark:
+    ```bash
+    # Build the benchmark container
+    docker build -t redis-benchmark .
+
+    # Run the benchmark and save results
+    docker run --rm -v ${PWD}/output:/tmp redis-benchmark 
+    ```
+    This will generate test data in the source Redis instance and save the  benchmark results to `./output/memtier_benchmark.txt`.
 
 ## Configuration
 
@@ -49,7 +65,10 @@ If your Redis instances require authentication, you can set the passwords:
 export REDIS_SOURCE_PASSWORD=your_source_password
 export REDIS_REPLICA_PASSWORD=your_replica_password
 ```
+## Data Loader
+If you are using a load node that already has  memtier_benchmark installed, you can use the following command to load data:
 
+```memtier_benchmark -s 172.17.0.2 -p 13300 --protocol=redis --clients=50 --threads=4 --requests=10000 --data-size=1024 --pipeline=1 --key-pattern=R:R --ratio=1:1```
 ## Usage
 
 You can run the scripts individually or use the complete test sequence:
