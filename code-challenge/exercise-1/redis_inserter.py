@@ -1,18 +1,28 @@
 import redis
 import time
+from config import (
+    REDIS_SOURCE_HOST,
+    REDIS_SOURCE_PORT,
+    REDIS_REPLICA_HOST,
+    REDIS_REPLICA_PORT,
+    REDIS_SOURCE_PASSWORD,
+    REDIS_REPLICA_PASSWORD
+)
 
 def insert_data():
     # Connect to source Redis database
     source_redis = redis.Redis(
-        host="localhost",
-        port=13300,
+        host=REDIS_SOURCE_HOST,
+        port=REDIS_SOURCE_PORT,
+        password=REDIS_SOURCE_PASSWORD,
         decode_responses=True  # This ensures we get strings rather than bytes
     )
 
     # Connect to replica Redis database
     replica_redis = redis.Redis(
-        host="localhost",
-        port=19777,
+        host=REDIS_REPLICA_HOST,
+        port=REDIS_REPLICA_PORT,
+        password=REDIS_REPLICA_PASSWORD,
         decode_responses=True
     )
 

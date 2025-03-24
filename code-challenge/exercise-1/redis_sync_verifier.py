@@ -4,6 +4,14 @@ import redis
 import sys
 from typing import Dict, List, Set, Tuple
 import time
+from config import (
+    REDIS_SOURCE_HOST,
+    REDIS_SOURCE_PORT,
+    REDIS_REPLICA_HOST,
+    REDIS_REPLICA_PORT,
+    REDIS_SOURCE_PASSWORD,
+    REDIS_REPLICA_PASSWORD
+)
 
 def connect_to_redis(host: str, port: int, password: str = None) -> redis.Redis:
     """Establish connection to Redis instance."""
@@ -116,11 +124,12 @@ def verify_sync(source_host: str, source_port: int, replica_host: str, replica_p
         print("\nAll common keys are synchronized!")
 
 if __name__ == "__main__":
-    # Example usage
-    SOURCE_HOST = "localhost"
-    SOURCE_PORT = 13300
-    REPLICA_HOST = "localhost"
-    REPLICA_PORT = 19777
-    
-    verify_sync(SOURCE_HOST, SOURCE_PORT, REPLICA_HOST, REPLICA_PORT) 
+    verify_sync(
+        REDIS_SOURCE_HOST,
+        REDIS_SOURCE_PORT,
+        REDIS_REPLICA_HOST,
+        REDIS_REPLICA_PORT,
+        REDIS_SOURCE_PASSWORD,
+        REDIS_REPLICA_PASSWORD
+    ) 
    
