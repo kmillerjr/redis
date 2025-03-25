@@ -1,5 +1,9 @@
 import os
+from dotenv import load_dotenv
 
+
+# Load environment variables
+load_dotenv()
 # Redis connection settings with environment variable support
 REDIS_SOURCE_HOST = os.getenv('REDIS_SOURCE_HOST', '172.16.22.21')
 REDIS_SOURCE_PORT = int(os.getenv('REDIS_SOURCE_PORT', '13300'))

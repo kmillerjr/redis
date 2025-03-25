@@ -1,0 +1,4 @@
+redis==5.3.0b5
+requests==2.31.0
+redisvl
+python-dotenv>=1.0.0 

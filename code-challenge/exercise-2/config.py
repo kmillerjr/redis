@@ -1,4 +1,9 @@
 import os
+from dotenv import load_dotenv
+
+
+# Load environment variables
+load_dotenv()
 
 # Redis Enterprise API connection settings with environment variable support
 REDIS_ENTERPRISE_HOST = os.getenv('REDIS_ENTERPRISE_HOST', '172.16.22.21')
