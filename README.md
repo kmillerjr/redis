@@ -4,7 +4,7 @@ This project contains a series of exercises demonstrating different aspects of R
 
 ## Exercise Overview
 
-### Exercise 1: [Redis Synchronization Verification](code-challenge\exercise-2)
+### Exercise 1: [Redis Synchronization Verification](code-challenge/exercise-2)
 This exercise focuses on Redis replication and synchronization verification between source and replica Redis instances. It includes:
 - Tools for inserting test data
 - Verification of data synchronization
@@ -17,7 +17,7 @@ This exercise focuses on Redis replication and synchronization verification betw
 - Detailed synchronization verification
 - Support for multiple data types
 
-### Exercise 2: [Redis Enterprise Role and User Management](code-challenge\exercise-2)
+### Exercise 2: [Redis Enterprise Role and User Management](code-challenge/exercise-2)
 This exercise demonstrates role and user management functionality for Redis Enterprise using the REST API. It includes:
 - Role creation and management
 - User creation and assignment
@@ -30,7 +30,7 @@ This exercise demonstrates role and user management functionality for Redis Ente
 - Database creation and management
 - REST API implementation
 
-### Bonus Exercise: [Semantic Search Implementation](code-challenge\bonus)
+### Bonus Exercise: [Semantic Search Implementation](code-challenge/bonus)
 This exercise demonstrates advanced semantic routing capabilities using Redis Vector Search. It includes:
 - Semantic routing for incoming queries
 - Vector embeddings for text similarity
@@ -65,7 +65,7 @@ This exercise demonstrates advanced semantic routing capabilities using Redis Ve
 
 ## Project Components
 
-### Exercise 1: [Redis Replication](code-challenge\exercise-1\README.md)
+### Exercise 1: [Redis Replication](code-challenge/exercise-1\README.md)
 Demonstrates Redis replication and verification between source and replica Redis instances.
 
 Key components:
@@ -74,14 +74,14 @@ Key components:
 - `run_sync_test.py`: Orchestrates complete test sequence
 - `config.py`: Configuration settings
 
-### Exercise 2: [Redis Enterprise API](code-challenge\exercise-2\readme.md)
+### Exercise 2: [Redis Enterprise API](code-challenge/exercise-2/readme.md)
 Implements Redis Enterprise API functionality for database management.
 
 Key components:
 - `redis_enterprise_api.py`: Core API implementation
 - `config.py`: Configuration settings
 
-### Bonus Exercise: [Semantic Search](code-challenge\bonus\README.md)
+### Bonus Exercise: [Semantic Search](code-challenge/bonus/README.md)
 Implements semantic search capabilities using Redis.
 
 Key components:
