@@ -4,7 +4,7 @@ This project contains a series of exercises demonstrating different aspects of R
 
 ## Exercise Overview
 
-### Exercise 1: [Redis Synchronization Verification](code-challenge/exercise-2)
+### Exercise 1: [Redis Synchronization Verification](code-challenge/exercise-1)
 This exercise focuses on Redis replication and synchronization verification between source and replica Redis instances. It includes:
 - Tools for inserting test data
 - Verification of data synchronization
@@ -65,7 +65,7 @@ This exercise demonstrates advanced semantic routing capabilities using Redis Ve
 
 ## Project Components
 
-### Exercise 1: [Redis Replication](code-challenge/exercise-1\README.md)
+### Exercise 1: [Redis Replication](code-challenge/exercise-1/README.md)
 Demonstrates Redis replication and verification between source and replica Redis instances.
 
 Key components:
