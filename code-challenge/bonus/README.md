@@ -111,7 +111,3 @@ self.routes = {
     # Your other routes...
 }
 ```
-
-## License
-
-MIT
