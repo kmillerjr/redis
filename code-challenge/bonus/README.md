@@ -9,7 +9,6 @@ A Python application that performs semantic routing for incoming queries, direct
   - Science Fiction Entertainment
   - Classical Music
 - Uses vector embeddings from Sentence Transformers for semantic similarity
-- Provides both a REST API and command-line interface
 - Configurable Redis connection
 - Simple to extend with new routes or reference examples
 
@@ -20,9 +19,8 @@ A Python application that performs semantic routing for incoming queries, direct
 - Dependencies:
   - redisvl
   - sentence-transformers
-  - flask
-  - numpy
-  - scipy
+  - python-dotenv
+  - requests
 
 ## Installation
 
@@ -43,48 +41,30 @@ pip install -r requirements.txt
 docker run -p 6379:6379 redis/redis-stack:latest
 ```
 
+4. Create a `.env` file in the project directory with your Redis configuration:
+```env
+REDIS_URL=redis://localhost:14000
+REDIS_SOCKET_CONNECT_TIMEOUT=30
+REDIS_SOCKET_TIMEOUT=120
+ROUTER_NAME=topic-router
+```
+
 ## Usage
 
-### API Server
+The semantic router is implemented as a Python module that can be imported and used in your applications. Here's how to use it:
 
-Start the API server:
+```python
+from semantic_router import router
 
-```bash
-python semantic_router.py --redis-host localhost --redis-port 6379
-```
+# Test a query
+query = "How to implement RAG with Python and vector databases"
+response = router.route_many(query)
 
-Send a query:
-
-```bash
-curl -X POST http://localhost:5000/route \
-  -H "Content-Type: application/json" \
-  -d '{"query": "How to implement transformer models with PyTorch"}'
-```
-
-Example response:
-
-```json
-{
-  "confidence": 0.8,
-  "query": "How to implement transformer models with PyTorch",
-  "route": "genai_programming",
-  "route_name": "GenAI Programming Topics",
-  "success": true
-}
-```
-
-### Command Line Interface
-
-For interactive mode:
-
-```bash
-python semantic_router_cli.py -i
-```
-
-For a single query:
-
-```bash
-python semantic_router_cli.py "What are the main themes in Blade Runner 2049?"
+if response:
+    print(f"Matched route: {response[0].name}")
+    print(f"Similarity score: {response[0].distance}")
+else:
+    print("No matching route found")
 ```
 
 ## How It Works
@@ -96,18 +76,20 @@ python semantic_router_cli.py "What are the main themes in Blade Runner 2049?"
 
 ## Customization
 
-You can easily customize the routes and reference examples by modifying the `routes` dictionary in the `SemanticRouter` class:
+You can customize the routes by modifying the route definitions in `semantic_router.py`. Each route is defined using the `Route` class from RedisVL:
 
 ```python
-self.routes = {
-    "your_new_route": {
-        "name": "Your New Route Name",
-        "references": [
-            "Example sentence 1 related to your route",
-            "Example sentence 2 related to your route",
-            # Add more references...
-        ]
-    },
-    # Your other routes...
-}
+from redisvl.extensions.router import Route
+
+new_route = Route(
+    name="your_new_route",
+    description="Your New Route Name",
+    references=[
+        "Example sentence 1 related to your route",
+        "Example sentence 2 related to your route",
+        # Add more references...
+    ],
+    metadata={"category": "your_category", "priority": 1},
+    distance_threshold=0.1
+)
 ```
